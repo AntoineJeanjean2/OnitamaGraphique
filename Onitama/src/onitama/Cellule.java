@@ -1,3 +1,8 @@
+package onitama;
+
+
+import onitama.Piece;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +13,6 @@
  *
  * @author antoi
  */
-public class Pioche {
-    Carte[] pioche = new Carte[16];
+public class Cellule {
+    Piece pieceCourante;
 }

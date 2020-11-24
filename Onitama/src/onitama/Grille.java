@@ -1,3 +1,5 @@
+package onitama;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +10,7 @@
  *
  * @author antoi
  */
-public class Partie {
-    Joueur[] listeJoueurs = new Joueur[2];
-    Grille grilleDeJeu;
+public class Grille {
+    Cellule[][] Cellules = new Cellule[5][5];
+    Carte carteEchiquier;
 }
