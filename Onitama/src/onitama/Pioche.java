@@ -11,5 +11,5 @@ package onitama;
  * @author antoi
  */
 public class Pioche {
-    Carte[] pioche = new Carte[16];
+    Carte[] cartePioche = new Carte[16];
 }

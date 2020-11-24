@@ -18,4 +18,12 @@ public class Joueur {
     String couleur;
     Piece[] listePieces = new Piece[5];
     Carte[] listeCartes = new Carte[2];
+    
+    public Joueur(String unJoueur){
+        nom=unJoueur;
+    }
+    
+    public void affecter_couleur(String uneCouleur){
+        couleur=uneCouleur;
+    }
 }
