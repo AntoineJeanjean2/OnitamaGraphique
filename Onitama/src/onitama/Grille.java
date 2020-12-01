@@ -14,4 +14,23 @@ public class Grille {
     Cellule[][] Cellules = new Cellule[5][5];
     Carte carteEchiquier;
     
+    public void afficherGrilleSurConsole(){
+            for (int i=0; i <6; i++) { 
+            for (int j =0;j < 7; j++){
+                if (Cellules[i][j].pieceCourante != null) {                   
+                    System.out.print(Cellules[i][j].pieceCourante);
+                }
+                else if(Cellules[i][j].templeBleu==true){
+                    System.out.print("\u001B[0m B ");
+                }
+                else if(Cellules[i][j].templeRouge==true){
+                    System.out.print("\u001B[0m R ");
+                }
+                else{
+                    System.out.print("\u001B[0m N ");
+            }  
+        }System.out.println();
+    }
+    }
+    
 }

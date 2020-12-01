@@ -14,25 +14,24 @@ import onitama.Grille;
  * @author antoi
  */
 public class Carte {
-    Grille grilleCarte;
+    int[][] tabDeplacement;
     String nom;
     
-    public Carte(Grille grilleCarte, String unNom){        
+    public Carte(int[][] tabDeplacement, String unNom){        
         for (int i = 0; i<5; i++){
             for (int j = 0; j<5; j++){
-                grilleCarte.Cellules[i][j] = null;
+                tabDeplacement[i][j] = 0;
             }
         }
     }
     
-    public void definirMotif(Carte uneCarte, int[][] placementMotif){
-        
-        for (int i=0; i< placementMotif.length; i++){
-             int x = placementMotif[i][0];
-             int y = placementMotif[i][1];
-             uneCarte.grilleCarte.Cellules[x][y].motifDeplacement = true;        
+    public void definirMotif(Carte uneCarte, int[][] tabCoup){        
+        for (int i=0; i< tabCoup.length; i++){
+             int x = tabCoup[i][0];
+             int y = tabCoup[i][1];
+             uneCarte.tabDeplacement[x][y]=1;       
             }
-        }
-        
-                
+        }    
+   
+    
 }    
