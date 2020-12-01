@@ -23,7 +23,14 @@ public class Joueur {
         nom=unJoueur;
     }
     
-    public void affecter_couleur(String uneCouleur){
+    public void affecterCouleur(String uneCouleur){
         couleur=uneCouleur;
+    }
+    
+    public void definirPieces(){
+        this.listePieces[0].type = "roi";
+        for (int i=1; i<5; i++){
+            this.listePieces[i].type = "pion";
+        }
     }
 }

@@ -12,6 +12,10 @@ package onitama;
  */
 public class Piece {
     String type;
-    String couleur;
+    String couleur;    
+    
+    public void attribuerCouleur(String uneCouleur){
+        couleur=uneCouleur;
+    }
     
 }

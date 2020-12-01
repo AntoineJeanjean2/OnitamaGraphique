@@ -26,7 +26,6 @@ public class Partie {
     }
     
     public void piocherCarte(Joueur unJoueur){        
-        
         for (int i=0; i < unJoueur.listeCartes.length; i++){
             unJoueur.listeCartes[i] = piochePartie.cartePioche[0];
         }

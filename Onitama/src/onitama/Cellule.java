@@ -15,4 +15,6 @@ import onitama.Piece;
  */
 public class Cellule {
     Piece pieceCourante;
+    boolean templeBleu;
+    boolean templeRouge;
 }

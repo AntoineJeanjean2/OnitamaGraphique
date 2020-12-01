@@ -13,4 +13,9 @@ package onitama;
 public class Grille {
     Cellule[][] Cellules = new Cellule[5][5];
     Carte carteEchiquier;
+    
+    public void placerTemple(){
+        Cellules[0][2].templeBleu=true;
+        Cellules[5][2].templeRouge=true;        
+    }
 }
