@@ -17,4 +17,5 @@ public class Cellule {
     Piece pieceCourante;
     boolean templeBleu;
     boolean templeRouge;
+    boolean motifDeplacement;
 }

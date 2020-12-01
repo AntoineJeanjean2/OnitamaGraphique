@@ -33,4 +33,10 @@ public class Joueur {
             this.listePieces[i].type = "pion";
         }
     }
+    
+    public void couleurPieces(String couleur){
+        for (int i=0; i<5; i++){
+            this.listePieces[i].couleur = couleur;
+        }
+    }
 }

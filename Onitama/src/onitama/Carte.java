@@ -15,4 +15,24 @@ import onitama.Grille;
  */
 public class Carte {
     Grille grilleCarte;
-}
+    String nom;
+    
+    public Carte(Grille grilleCarte, String unNom){        
+        for (int i = 0; i<5; i++){
+            for (int j = 0; j<5; j++){
+                grilleCarte.Cellules[i][j] = null;
+            }
+        }
+    }
+    
+    public void definirMotif(Carte uneCarte, int[][] placementMotif){
+        
+        for (int i=0; i< placementMotif.length; i++){
+             int x = placementMotif[i][0];
+             int y = placementMotif[i][1];
+             uneCarte.grilleCarte.Cellules[x][y].motifDeplacement = true;        
+            }
+        }
+        
+                
+}    

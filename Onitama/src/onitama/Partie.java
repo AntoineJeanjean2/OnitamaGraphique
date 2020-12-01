@@ -38,5 +38,23 @@ public class Partie {
         }
         piochePartie.cartePioche[piochePartie.cartePioche.length-1] = null;
     }
+    
+    public void placerTemple(){
+        grilleJeu.Cellules[0][2].templeBleu=true;
+        grilleJeu.Cellules[5][2].templeRouge=true;        
+    }
+    
+    public void placerPieces(){
+        grilleJeu.Cellules[0][2].pieceCourante = listeJoueurs[0].listePieces[0];
+        grilleJeu.Cellules[0][0].pieceCourante = listeJoueurs[0].listePieces[1];
+        grilleJeu.Cellules[0][1].pieceCourante = listeJoueurs[0].listePieces[2];
+        grilleJeu.Cellules[0][3].pieceCourante = listeJoueurs[0].listePieces[3];
+        grilleJeu.Cellules[0][4].pieceCourante = listeJoueurs[0].listePieces[4];
+        
+        grilleJeu.Cellules[4][2].pieceCourante = listeJoueurs[1].listePieces[0];
+        grilleJeu.Cellules[4][0].pieceCourante = listeJoueurs[1].listePieces[1];
+        grilleJeu.Cellules[4][1].pieceCourante = listeJoueurs[1].listePieces[2];
+        grilleJeu.Cellules[4][3].pieceCourante = listeJoueurs[1].listePieces[3];
+        grilleJeu.Cellules[4][4].pieceCourante = listeJoueurs[1].listePieces[4];
 }
-
+}
