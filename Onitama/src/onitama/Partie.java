@@ -115,7 +115,7 @@ public class Partie {
             deplacerPion(pieceADeplacer, carteAJouer, coordonneesPiece);
         }
         else{
-            if(grilleJeu.Cellules[x][y] == coordonneesPiece  
+            if(coordonneesPiece 
             }
         }
     }
