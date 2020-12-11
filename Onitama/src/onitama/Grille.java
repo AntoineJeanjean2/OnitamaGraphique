@@ -14,6 +14,14 @@ public class Grille {
     Cellule[][] Cellules = new Cellule[5][5];
     Carte carteEchiquier;
     
+   public void viderGrille() {  //On vide la grille de ses jetons
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                Cellules[i][j].pieceCourante = null;
+            }
+        }
+    }
+    
     public void afficherGrilleSurConsole(){
             for (int i=0; i <6; i++) { 
             for (int j =0;j < 7; j++){
@@ -32,5 +40,4 @@ public class Grille {
         }System.out.println();
     }
     }
-    
 }
