@@ -119,8 +119,7 @@ public class Partie {
         }
                 
         if(grilleJeu.Cellules[x][y].pieceCourante != null){
-            System.out.println("Choisissez un déplacement vers une case où ne se trouve pas déjà une autre pièce");
-            choisirDeplacement(pieceADeplacer, carteAJouer, coordonneesPiece,numero);
+            
         }
         else{
             int xVect = x - coordonneesPiece[0];
@@ -145,6 +144,10 @@ public class Partie {
         grilleJeu.Cellules[coordonneesPiece[0]][coordonneesPiece[1]].pieceCourante = null;
         
     }
+    
+    public void mangerPiece(){
+        
+}
     
        public void attribuerCouleursAuxJoueurs() {  //Attribution des couleurs au hasard
         Random r = new Random();
@@ -179,8 +182,6 @@ public class Partie {
         System.out.println("Le joueur "+J1.nom+" est de couleur "+J1.couleur);
         System.out.println("Le joueur "+J2.nom+" est de couleur "+J2.couleur);       
         
-        grilleJeu.afficherGrilleSurConsole();
-        
         placerTemple();
         placerPieces();
         placerPieces();
@@ -199,7 +200,9 @@ public class Partie {
         
     }
     
-    
+    public void tourDeJeu(){
+        
+    }
 }
 
 

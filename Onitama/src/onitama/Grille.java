@@ -40,4 +40,6 @@ public class Grille {
         }System.out.println();
     }
     }
+    
+    public boolean etreGagnantePourJoueur
 }
