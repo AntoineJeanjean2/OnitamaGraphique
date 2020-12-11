@@ -32,6 +32,5 @@ public class Carte {
              uneCarte.tabDeplacement[x][y]=1;       
             }
         }    
-   
     
 }    

@@ -1,6 +1,7 @@
 package onitama;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -57,4 +58,45 @@ public class Partie {
         grilleJeu.Cellules[4][3].pieceCourante = listeJoueurs[1].listePieces[3];
         grilleJeu.Cellules[4][4].pieceCourante = listeJoueurs[1].listePieces[4];
 }
+    
+    public boolean choisirCarte(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Saisir le numéro de la carte que vous souhaitez jouer");
+        int numero=sc.nextInt();
+        
+        if (numero != 1 && numero !=2){
+            System.out.println("Choisissez un numéro de carte valide");
+            choisirCarte();
+        }
+        else{
+            Carte carteAJouer=joueurCourant.listeCartes[numero-1];
+            return true;
+        }return false;        
+    }
+    
+    public boolean choisirPion(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Saisir le numéro de la ligne du pion que vous souhaitez déplacer");
+        int x=sc.nextInt();
+        System.out.println("Saisir le numéro de la colonne du pion que vous souhaitez déplacer");
+        int y=sc.nextInt();
+        
+        Piece pieceADeplacer;
+        
+        if (this.grilleJeu.Cellules[x][y].pieceCourante != null){
+            if (this.grilleJeu.Cellules[x][y].pieceCourante.couleur.equals(joueurCourant.couleur)){
+                pieceADeplacer = this.grilleJeu.Cellules[x][y].pieceCourante;
+                return true;
+            }
+            else{
+                System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
+                choisirPion();
+            }
+        }
+        else{
+            System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
+            choisirPion();
+        }return false;        
+    }
 }
+
