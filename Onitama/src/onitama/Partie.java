@@ -2,6 +2,7 @@ package onitama;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -74,19 +75,20 @@ public class Partie {
         }return false;        
     }
     
-    public boolean choisirPion(){
+    public int[][] choisirPion(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Saisir le numéro de la ligne du pion que vous souhaitez déplacer");
-        int x=sc.nextInt();
-        System.out.println("Saisir le numéro de la colonne du pion que vous souhaitez déplacer");
-        int y=sc.nextInt();
+        System.out.println("Saisir le numéro de la ligne de la pièce que vous souhaitez déplacer");
+        int x=sc.nextInt()-1;
+        System.out.println("Saisir le numéro de la colonne de la pièce que vous souhaitez déplacer");
+        int y=sc.nextInt()-1;
         
         Piece pieceADeplacer;
         
         if (this.grilleJeu.Cellules[x][y].pieceCourante != null){
             if (this.grilleJeu.Cellules[x][y].pieceCourante.couleur.equals(joueurCourant.couleur)){
                 pieceADeplacer = this.grilleJeu.Cellules[x][y].pieceCourante;
-                return true;
+                int[][] coordonneesPiece = {{x},{y}};
+                return coordonneesPiece;
             }
             else{
                 System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
@@ -96,7 +98,26 @@ public class Partie {
         else{
             System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
             choisirPion();
-        }return false;        
+        }return null;        
+    }
+    
+    public boolean deplacerPion(Piece pieceADeplacer, Carte carteAJouer, int[] coordonneesPiece){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Saisir le numéro de la ligne où vous souhaitez déplacer votre pièce");
+        int x=sc.nextInt()-1;
+        System.out.println("Saisir le numéro de la colonne où vous souhaitez déplacer votre pièce");
+        int y=sc.nextInt()-1;
+        
+        int[][] tabSomme = new int[2][1];
+                
+        if(grilleJeu.Cellules[x][y].pieceCourante != null){
+            System.out.println("Choisissez un déplacement vers une case où ne se trouve pas déjà une autre pièce");
+            deplacerPion(pieceADeplacer, carteAJouer, coordonneesPiece);
+        }
+        else{
+            if(grilleJeu.Cellules[x][y] == coordonneesPiece  
+            }
+        }
     }
 }
 
