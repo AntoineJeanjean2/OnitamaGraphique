@@ -16,9 +16,24 @@ import java.util.Arrays;
  */
 public class Partie {
     Joueur[] listeJoueurs = new Joueur[2];
-    Grille grilleJeu;
+    Grille grilleJeu = new Grille();
     Joueur joueurCourant;
-    Pioche piochePartie;
+    Pioche piochePartie = new Pioche();
+    
+    public Joueur prochainJoueur(Joueur un_joueur) {  // Méthode permettant le passage d'un joueur à l'autre
+        if (listeJoueurs[0] == joueurCourant) {
+            afficherCartesJoueur(listeJoueurs[1]);
+            return listeJoueurs[1];
+        }
+        afficherCartesJoueur(listeJoueurs[0]);
+        return listeJoueurs[0];
+    }
+    
+    public void afficherCartesJoueur(Joueur unJoueur){
+        for (int i=0; i<2; i++){
+            System.out.println(unJoueur.listeCartes[i].tabDeplacement);
+        }
+    }
     
     public void echangerCarte(Joueur joueurCourant, int numeroCarte ){        
         Carte temp = joueurCourant.listeCartes[numeroCarte];
@@ -106,7 +121,9 @@ public class Partie {
         }return null;        
     }
     
-    public int[] choisirDeplacement(Piece pieceADeplacer, Carte carteAJouer, int[] coordonneesPiece,int numero){
+    public int[] choisirDeplacement(int[] coordonneesPiece,int numero){
+        Carte carteAJouer = joueurCourant.listeCartes[numero-1];
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("Saisir le numéro de la ligne où vous souhaitez déplacer votre pièce");
         int x=sc.nextInt()-1;
@@ -115,7 +132,7 @@ public class Partie {
         
         if (x > 4 || x < 0 || y > 4 || y < 0){
             System.out.println("Saisissez des coordonnées correctes");
-            choisirDeplacement(pieceADeplacer, carteAJouer, coordonneesPiece,numero);
+            choisirDeplacement(coordonneesPiece,numero);
         }
                 
         if(grilleJeu.Cellules[x][y].pieceCourante != null){
@@ -133,7 +150,7 @@ public class Partie {
             }
             else{
                 System.out.println("Vous ne pouvez pas manger vos propre pion");
-                choisirDeplacement(pieceADeplacer, carteAJouer, coordonneesPiece,numero);
+                choisirDeplacement(coordonneesPiece,numero);
             }
     }
         else{
@@ -148,13 +165,16 @@ public class Partie {
             }               
             }
             }System.out.println("Saisissez des coordonnées valides de déplacement par rapport à la carte choisie");
-            choisirDeplacement(pieceADeplacer, carteAJouer, coordonneesPiece,numero);
+            choisirDeplacement(coordonneesPiece,numero);
             return null;
         }
     
-    public void deplacerPion(int[] tabVecteur, Piece pieceADeplacer, int[] coordonneesPiece){
+    public void deplacerPion(int[] tabVecteur, int[] coordonneesPiece){
         int xArrivee = coordonneesPiece[0] + tabVecteur[0];
         int yArrivee = coordonneesPiece[1] + tabVecteur[1];
+        
+        Piece pieceADeplacer = grilleJeu.Cellules[coordonneesPiece[0]][coordonneesPiece[1]].pieceCourante;
+        
         grilleJeu.Cellules[xArrivee][yArrivee].pieceCourante = pieceADeplacer;
         grilleJeu.Cellules[coordonneesPiece[0]][coordonneesPiece[1]].pieceCourante = null;
         
@@ -213,8 +233,29 @@ public class Partie {
     }
     
     public void tourDeJeu(){
+        while (grilleJeu.etreGagnantePourJoueur(listeJoueurs[0]) != true && grilleJeu.etreGagnantePourJoueur(listeJoueurs[1]) != true){
+            int choixCarte = choisirCarte();
+            int [] coordonneesPion = choisirPion();
+            int [] choixDeplacement = choisirDeplacement(coordonneesPion,choixCarte);
+            deplacerPion(choixDeplacement,coordonneesPion);
+            
+            this.grilleJeu.afficherGrilleSurConsole();   //On affiche la grille après chaque tour et on passe au joueur suivant
+            joueurCourant = prochainJoueur(joueurCourant);
+        }        
+    }
+    
+    public void debuterPartie(){
+        initialiserPartie();  //On initialise la partie et on affiche la grille de départ
+        this.grilleJeu.afficherGrilleSurConsole();
+        System.out.println("Effectuez une action");
+        tourDeJeu();
         
+        if (grilleJeu.etreGagnantePourJoueur(joueurCourant) == true) {  //Si la grille est gagnante on affiche le nom du gagnant
+            System.out.println("Le joueur " + joueurCourant.nom + " a gagné");
+        }
     }
 }
+
+
 
 

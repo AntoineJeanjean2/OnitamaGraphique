@@ -15,6 +15,10 @@ public class Onitama {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        System.out.println("Bienvenue dans le jeu Onitama");
+        Partie premierePartie = new Partie();
+        premierePartie.debuterPartie();
     }
     
 }

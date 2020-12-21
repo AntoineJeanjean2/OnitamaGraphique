@@ -14,6 +14,15 @@ public class Grille {
     Cellule[][] Cellules = new Cellule[5][5];
     Carte carteEchiquier;
     
+    public Grille(){ //On crée les cellules dans la grille
+    for (int i=0;i<5;i++){
+        for (int j=0;j<5;j++){
+            Cellules[i][j]=new Cellule();
+        }
+    }
+}
+    
+    
    public void viderGrille() {  //On vide la grille de ses jetons
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {

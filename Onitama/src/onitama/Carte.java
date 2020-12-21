@@ -31,7 +31,5 @@ public class Carte {
              int y = tabCoup[i][1];
              uneCarte.tabDeplacement[x][y]=1;       
             }
-        }    
-   
-    
+        }      
 }    
