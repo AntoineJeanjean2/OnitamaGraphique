@@ -216,6 +216,7 @@ public class Partie {
         placerPieces();
         placerPieces();
         
+        this.piochePartie.melangerPioche(this.piochePartie.cartePioche);
         piocherCarteEchiquier();
         piocherCarte(J1);
         piocherCarte(J2);
