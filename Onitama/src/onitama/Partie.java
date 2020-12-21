@@ -48,7 +48,7 @@ public class Partie {
     
     public void placerTemple(){
         grilleJeu.Cellules[0][2].templeBleu=true;
-        grilleJeu.Cellules[5][2].templeRouge=true;        
+        grilleJeu.Cellules[4][2].templeRouge=true;        
     }
     
     public void placerPieces(){
@@ -119,8 +119,23 @@ public class Partie {
         }
                 
         if(grilleJeu.Cellules[x][y].pieceCourante != null){
-            
-        }
+            if(!grilleJeu.Cellules[x][y].pieceCourante.couleur.equals(joueurCourant.couleur)){
+                int xVect = x - coordonneesPiece[0];
+                int yVect = y - coordonneesPiece[1];
+                
+                for (int i=0; i < carteAJouer.tabDeplacement.length; i++){
+                    if (xVect == carteAJouer.tabDeplacement[i][0] && yVect == carteAJouer.tabDeplacement[i][1]){
+                        int[] tabVecteur = {xVect,yVect};
+                        echangerCarte(joueurCourant,numero);
+                        return tabVecteur;
+            }
+            }
+            }
+            else{
+                System.out.println("Vous ne pouvez pas manger vos propre pion");
+                choisirDeplacement(pieceADeplacer, carteAJouer, coordonneesPiece,numero);
+            }
+    }
         else{
             int xVect = x - coordonneesPiece[0];
             int yVect = y - coordonneesPiece[1];
@@ -145,9 +160,6 @@ public class Partie {
         
     }
     
-    public void mangerPiece(){
-        
-}
     
        public void attribuerCouleursAuxJoueurs() {  //Attribution des couleurs au hasard
         Random r = new Random();
