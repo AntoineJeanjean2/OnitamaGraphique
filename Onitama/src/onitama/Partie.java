@@ -22,10 +22,8 @@ public class Partie {
     
     public Joueur prochainJoueur(Joueur un_joueur) {  // Méthode permettant le passage d'un joueur à l'autre
         if (listeJoueurs[0] == joueurCourant) {
-            afficherCartesJoueur(listeJoueurs[1]);
             return listeJoueurs[1];
         }
-        afficherCartesJoueur(listeJoueurs[0]);
         return listeJoueurs[0];
     }
     
@@ -234,6 +232,9 @@ public class Partie {
     
     public void tourDeJeu(){
         while (grilleJeu.etreGagnantePourJoueur(listeJoueurs[0]) != true && grilleJeu.etreGagnantePourJoueur(listeJoueurs[1]) != true){
+            
+            afficherCartesJoueur(joueurCourant);
+            
             int choixCarte = choisirCarte();
             int [] coordonneesPion = choisirPion();
             int [] choixDeplacement = choisirDeplacement(coordonneesPion,choixCarte);

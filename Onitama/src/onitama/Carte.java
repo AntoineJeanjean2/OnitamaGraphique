@@ -18,8 +18,8 @@ public class Carte {
     String nom;
     
     public Carte(int[][] tabDeplacement, String unNom){        
-        for (int i = 0; i<5; i++){
-            for (int j = 0; j<5; j++){
+        for (int i = 0; i < tabDeplacement.length; i++){
+            for (int j = 0; j < 2; j++){
                 tabDeplacement[i][j] = 0;
             }
         }

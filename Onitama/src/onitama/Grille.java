@@ -32,8 +32,8 @@ public class Grille {
     }
     
     public void afficherGrilleSurConsole(){
-            for (int i=0; i <6; i++) { 
-            for (int j =0;j < 7; j++){
+            for (int i=0; i <5; i++) { 
+            for (int j =0;j < 5; j++){
                 if (Cellules[i][j].pieceCourante != null) {                   
                     System.out.print(Cellules[i][j].pieceCourante);
                 }
@@ -51,24 +51,30 @@ public class Grille {
     }
     
     public boolean etreGagnantePourJoueur(Joueur unJoueur){
-        if ("rouge".equals(this.Cellules[0][2].pieceCourante.couleur) && "roi".equals(this.Cellules[0][2].pieceCourante.type)){
-            System.out.println("Le joueur Rouge a gagné");
-            return true;
+        if (Cellules[0][2].pieceCourante !=null){                 
+            if ("rouge".equals(this.Cellules[0][2].pieceCourante.couleur) && "roi".equals(this.Cellules[0][2].pieceCourante.type)){
+                System.out.println("Le joueur Rouge a gagné");
+                return true;
+            }
         }
-        if ("bleu".equals(this.Cellules[4][2].pieceCourante.couleur) && "roi".equals(this.Cellules[4][2].pieceCourante.type)){
-            System.out.println("Le joueur Bleu a gagné");
-            return true;
-        }    
+        if (Cellules[0][2].pieceCourante !=null){
+            if ("bleu".equals(this.Cellules[4][2].pieceCourante.couleur) && "roi".equals(this.Cellules[4][2].pieceCourante.type)){
+                System.out.println("Le joueur Bleu a gagné");
+                return true;
+            } 
+        }
         for (int i=0; i<5; i++){
             for (int j=0; j<5; j++){
-                if (!Cellules[i][j].pieceCourante.couleur.equals(unJoueur.couleur) && Cellules[i][j].pieceCourante.type.equals("roi") ){                   
-                    return false;
-                }
-                else{
-                    System.out.println("Le joueur "+unJoueur.couleur+" a gagné");
-                    return true;
-                }
+                if (Cellules[i][j].pieceCourante != null){
+                    if (!Cellules[i][j].pieceCourante.couleur.equals(unJoueur.couleur) && Cellules[i][j].pieceCourante.type.equals("roi") ){                   
+                        return false;
+                    }
+                    else{
+                        System.out.println("Le joueur "+unJoueur.couleur+" a gagné");
+                        return true;
+                    }
             }
+            }       
         }return false;   
         }
     }
