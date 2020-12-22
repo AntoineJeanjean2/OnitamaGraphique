@@ -33,33 +33,35 @@ public class Grille {
     
     public void afficherGrilleSurConsole(){
             for (int i=0; i <5; i++) { 
-            for (int j =0;j < 5; j++){
-                if (Cellules[i][j].pieceCourante != null) {                   
-                    System.out.print(Cellules[i][j].pieceCourante);
-                }
-                else if(Cellules[i][j].templeBleu==true){
-                    System.out.print("\u001B[0m B ");
-                }
-                else if(Cellules[i][j].templeRouge==true){
-                    System.out.print("\u001B[0m R ");
-                }
-                else{
-                    System.out.print("\u001B[0m N ");
-            }  
-        }System.out.println();
-    }
+                for (int j=0;j < 5; j++){
+                    if (Cellules[i][j].pieceCourante != null) {                   
+                        if (Cellules[i][j].pieceCourante.type.equals("roi"))
+                            System.out.print("\u001B[0m R ");
+                        else{
+                           System.out.print("\u001B[0m P "); 
+                        }
+                    }
+                    else if(Cellules[i][j].templeBleu==true){
+                        System.out.print("\u001B[0m B ");
+                    }
+                    else if(Cellules[i][j].templeRouge==true){
+                        System.out.print("\u001B[0m R ");
+                    }
+                    else{
+                        System.out.print("\u001B[0m N ");
+                }  
+            }System.out.println();
+        }
     }
     
     public boolean etreGagnantePourJoueur(Joueur unJoueur){
         if (Cellules[0][2].pieceCourante !=null){                 
-            if ("rouge".equals(this.Cellules[0][2].pieceCourante.couleur) && "roi".equals(this.Cellules[0][2].pieceCourante.type)){
-                System.out.println("Le joueur Rouge a gagné");
+            if (this.Cellules[0][2].pieceCourante.couleur.equals("rouge") && this.Cellules[0][2].pieceCourante.type.equals("roi")){
                 return true;
             }
         }
         if (Cellules[0][2].pieceCourante !=null){
-            if ("bleu".equals(this.Cellules[4][2].pieceCourante.couleur) && "roi".equals(this.Cellules[4][2].pieceCourante.type)){
-                System.out.println("Le joueur Bleu a gagné");
+            if (this.Cellules[4][2].pieceCourante.couleur.equals("bleu") && "roi".equals(this.Cellules[4][2].pieceCourante.type)){
                 return true;
             } 
         }
@@ -70,7 +72,6 @@ public class Grille {
                         return false;
                     }
                     else{
-                        System.out.println("Le joueur "+unJoueur.couleur+" a gagné");
                         return true;
                     }
             }

@@ -28,8 +28,10 @@ public class Joueur {
     }
     
     public void definirPieces(){
+        this.listePieces[0] = new Piece();
         this.listePieces[0].type = "roi";
-        for (int i=1; i<5; i++){
+        for (int i=1; i<5; i++){            
+            this.listePieces[i] = new Piece();
             this.listePieces[i].type = "pion";
         }
     }
