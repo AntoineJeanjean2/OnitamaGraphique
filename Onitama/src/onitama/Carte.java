@@ -17,12 +17,16 @@ public class Carte {
     int[][] tabDeplacement;
     String nom;
     
-    public Carte(int[][] tabDeplacement, String unNom){        
+    public Carte(int[][] unTabDeplacement, String unNom){               
+        int a = unTabDeplacement.length;               
+        tabDeplacement = new int[a][2];
+        
         for (int i = 0; i < tabDeplacement.length; i++){
             for (int j = 0; j < 2; j++){
-                tabDeplacement[i][j] = 0;
+                tabDeplacement[i][j] = unTabDeplacement[i][j];
             }
         }
+        nom = unNom;
     }
     
     public void definirMotif(Carte uneCarte, int[][] tabCoup){        
