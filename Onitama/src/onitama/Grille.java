@@ -65,6 +65,7 @@ public class Grille {
                 return true;
             } 
         }
+        int a = 0;
         for (int i=0; i<5; i++){
             for (int j=0; j<5; j++){
                 if (Cellules[i][j].pieceCourante != null){
@@ -72,10 +73,16 @@ public class Grille {
                         return false;
                     }
                     else{
-                        return true;
+                        a++;
                     }
             }
-            }       
-        }return false;   
+                else{
+                a++;
+                }
+            }
+        }
+        if (a == 25){
+            return true;
+        }return false;       
         }
     }
