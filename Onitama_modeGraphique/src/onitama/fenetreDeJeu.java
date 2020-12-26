@@ -10,13 +10,31 @@ package onitama;
  * @author antoi
  */
 public class fenetreDeJeu extends javax.swing.JFrame {
-
-    /**
-     * Creates new form fenetreDeJeu
-     */
+    Joueur[] listeJoueurs = new Joueur[2];
+    Grille grilleJeu = new Grille();
+    Joueur joueurCourant;
+    Pioche piochePartie = new Pioche();
+    
+    
     public fenetreDeJeu() {
         initComponents();
+        
+        carteJoueur1.setVisible(false);
+        carteJoueur2.setVisible(false);
+        carteEchiquier.setVisible(false);
+        
+        carteJoueur1.setVisible(false);
+        carteJoueur2.setVisible(false);
+        carteEchiquier.setVisible(false);
+        
+        for (int i=5; i>=0;i--){
+            for (int j=0; j<5;j++){
+                CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
+                panneauGrille.add(cellGraph);
+            }
+        }    
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +55,11 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         labelJ1 = new javax.swing.JTextField();
         labelJ2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        labelJCourant = new javax.swing.JLabel();
+        message = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,13 +105,28 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         });
         panneauInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
 
+        jLabel3.setText("Joueur Courant :");
+        panneauInfo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        labelJCourant.setText("nomJoueurCourant");
+        panneauInfo.add(labelJCourant, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        message.setViewportView(jTextArea1);
+
+        panneauInfo.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 60));
+        panneauInfo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 530, 30));
+
         getContentPane().add(panneauInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 550, 250));
 
         setBounds(0, 0, 1414, 787);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        carteJoueur1.setVisible(true);
+        carteJoueur2.setVisible(true);
+        carteEchiquier.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void labelJ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelJ1ActionPerformed
@@ -137,8 +175,13 @@ public class fenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField labelJ1;
     private javax.swing.JTextField labelJ2;
+    private javax.swing.JLabel labelJCourant;
+    private javax.swing.JScrollPane message;
     private javax.swing.JPanel panneauGrille;
     private javax.swing.JPanel panneauInfo;
     // End of variables declaration//GEN-END:variables
