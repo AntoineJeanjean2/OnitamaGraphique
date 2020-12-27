@@ -5,6 +5,9 @@
  */
 package onitama;
 
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  *
  * @author antoi
@@ -27,7 +30,7 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         carteJoueur2.setVisible(false);
         carteEchiquier.setVisible(false);
         
-        for (int i=5; i>=0;i--){
+        for (int i=4; i>=0;i--){
             for (int j=0; j<5;j++){
                 CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
                 panneauGrille.add(cellGraph);
@@ -60,6 +63,10 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         message = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        labelCouleurJ1 = new javax.swing.JLabel();
+        labelCouleurJ2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,8 +90,8 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         panneauInfo.setBackground(new java.awt.Color(51, 204, 255));
         panneauInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Nom Joueur 1 :");
-        panneauInfo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
+        jLabel1.setText("Couleur :");
+        panneauInfo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, 20));
 
         jLabel2.setText("Nom Joueur 2 :");
         panneauInfo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 20));
@@ -103,7 +110,7 @@ public class fenetreDeJeu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        panneauInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        panneauInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
 
         jLabel3.setText("Joueur Courant :");
         panneauInfo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
@@ -118,6 +125,18 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         panneauInfo.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 60));
         panneauInfo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 530, 30));
 
+        jLabel4.setText("Nom Joueur 1 :");
+        panneauInfo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
+
+        labelCouleurJ1.setText("couleurJ1");
+        panneauInfo.add(labelCouleurJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, 20));
+
+        labelCouleurJ2.setText("couleurJ2");
+        panneauInfo.add(labelCouleurJ2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, 20));
+
+        jLabel7.setText("Couleur :");
+        panneauInfo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, 20));
+
         getContentPane().add(panneauInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 550, 250));
 
         setBounds(0, 0, 1414, 787);
@@ -127,6 +146,7 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         carteJoueur1.setVisible(true);
         carteJoueur2.setVisible(true);
         carteEchiquier.setVisible(true);
+        initialiserPartie();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void labelJ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelJ1ActionPerformed
@@ -168,6 +188,118 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         });
     }
 
+    public void attribuerCouleursAuxJoueurs() {  //Attribution des couleurs au hasard
+        Random r = new Random();
+        boolean couleur;
+        couleur = r.nextBoolean();
+        if (couleur) {
+            listeJoueurs[0].couleur = "Rouge";
+            listeJoueurs[1].couleur = "Bleu";
+        } else {
+            listeJoueurs[0].couleur = "Bleu";
+            listeJoueurs[1].couleur = "Rouge";
+
+        }
+    }
+    
+    public void placerTemple(){
+        grilleJeu.Cellules[0][2].templeBleu=true;
+        grilleJeu.Cellules[4][2].templeRouge=true;        
+    }
+    
+    public void placerPieces(){
+        if (listeJoueurs[0].couleur.equals("Bleu")){
+            
+            grilleJeu.Cellules[0][2].pieceCourante = listeJoueurs[0].listePieces[0];
+            grilleJeu.Cellules[0][0].pieceCourante = listeJoueurs[0].listePieces[1];
+            grilleJeu.Cellules[0][1].pieceCourante = listeJoueurs[0].listePieces[2];
+            grilleJeu.Cellules[0][3].pieceCourante = listeJoueurs[0].listePieces[3];
+            grilleJeu.Cellules[0][4].pieceCourante = listeJoueurs[0].listePieces[4];
+
+            grilleJeu.Cellules[4][2].pieceCourante = listeJoueurs[1].listePieces[0];
+            grilleJeu.Cellules[4][0].pieceCourante = listeJoueurs[1].listePieces[1];
+            grilleJeu.Cellules[4][1].pieceCourante = listeJoueurs[1].listePieces[2];
+            grilleJeu.Cellules[4][3].pieceCourante = listeJoueurs[1].listePieces[3];
+            grilleJeu.Cellules[4][4].pieceCourante = listeJoueurs[1].listePieces[4];
+        }
+        else{
+            grilleJeu.Cellules[0][2].pieceCourante = listeJoueurs[1].listePieces[0];
+            grilleJeu.Cellules[0][0].pieceCourante = listeJoueurs[1].listePieces[1];
+            grilleJeu.Cellules[0][1].pieceCourante = listeJoueurs[1].listePieces[2];
+            grilleJeu.Cellules[0][3].pieceCourante = listeJoueurs[1].listePieces[3];
+            grilleJeu.Cellules[0][4].pieceCourante = listeJoueurs[1].listePieces[4];
+
+            grilleJeu.Cellules[4][2].pieceCourante = listeJoueurs[0].listePieces[0];
+            grilleJeu.Cellules[4][0].pieceCourante = listeJoueurs[0].listePieces[1];
+            grilleJeu.Cellules[4][1].pieceCourante = listeJoueurs[0].listePieces[2];
+            grilleJeu.Cellules[4][3].pieceCourante = listeJoueurs[0].listePieces[3];
+            grilleJeu.Cellules[4][4].pieceCourante = listeJoueurs[0].listePieces[4];
+        }
+}
+    public void piocherCarte(Joueur unJoueur){        
+        for (int i=0; i < unJoueur.listeCartes.length; i++){
+            unJoueur.listeCartes[i] = piochePartie.cartePioche[0];
+            tasserPioche();
+        }
+    }
+    
+    public void piocherCarteEchiquier(){
+        grilleJeu.carteEchiquier = piochePartie.cartePioche[0];
+        tasserPioche();
+    }
+    
+     public void tasserPioche(){
+        
+        for (int i=0; i < piochePartie.cartePioche.length-1; i++){
+            piochePartie.cartePioche[i] = piochePartie.cartePioche[i+1];            
+        }
+        piochePartie.cartePioche[piochePartie.cartePioche.length-1] = null;
+    }
+    
+    public void initialiserPartie(){
+        grilleJeu.viderGrille();       
+
+        String nomJoueur1 = labelJ1.getText();
+        Joueur J1 = new Joueur(nomJoueur1);
+        labelJ1.setEnabled(false);
+        
+        String nomJoueur2 = labelJ2.getText();
+        Joueur J2 = new Joueur(nomJoueur2);
+        labelJ2.setEnabled(false);
+        
+        listeJoueurs[0] = J1;
+        listeJoueurs[1] = J2;
+        
+        J1.definirPieces();
+        J2.definirPieces();
+        
+        attribuerCouleursAuxJoueurs();
+        
+        J1.couleurPieces(J1.couleur);
+        J2.couleurPieces(J2.couleur);
+        
+        System.out.println("Le joueur "+J1.nom+" est de couleur "+J1.couleur);
+        System.out.println("Le joueur "+J2.nom+" est de couleur "+J2.couleur);       
+        
+        placerTemple();
+        placerPieces();
+        placerPieces();
+        
+        this.piochePartie.melangerPioche(this.piochePartie.cartePioche); //On mélange la pioche et on attribue les cartes au joueur et les cartes de la grille
+        piocherCarteEchiquier();
+        piocherCarte(J1);
+        piocherCarte(J2);
+        
+        Random r = new Random();    //On définit au hasard le premier joueur
+        boolean premierJoueur = r.nextBoolean();
+        if (premierJoueur) {
+            joueurCourant = listeJoueurs[0];
+        } else {
+            joueurCourant = listeJoueurs[1];
+        }
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel carteEchiquier;
     private javax.swing.JPanel carteJoueur1;
@@ -176,8 +308,12 @@ public class fenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelCouleurJ1;
+    private javax.swing.JLabel labelCouleurJ2;
     private javax.swing.JTextField labelJ1;
     private javax.swing.JTextField labelJ2;
     private javax.swing.JLabel labelJCourant;
