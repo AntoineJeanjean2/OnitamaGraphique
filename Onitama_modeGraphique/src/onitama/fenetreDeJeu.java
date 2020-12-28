@@ -33,9 +33,19 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         for (int i=4; i>=0;i--){
             for (int j=0; j<5;j++){
                 CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
+                cellGraph.addActionListener(new java.awt.event.ActionListener(){
+                    public void actionPerformed(java.awt.event.ActionEvent evt){
+                        Cellule c = cellGraph.celluleAssociee;
+                        if (c.pieceCourante == null) return;
+                        if (!c.pieceCourante.couleur.equals(joueurCourant.couleur)) return;
+                        if (c.pieceCourante.couleur.equals(joueurCourant.couleur))
+                        
+                    }
+                });
+                
                 panneauGrille.add(cellGraph);
             }
-        }                
+        }       
     }
 
     /**
@@ -150,6 +160,20 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         CelluleGraphique cellGraph1 = new CelluleGraphique(joueurCourant.listeCartes[0]);
         CelluleGraphique cellGraph2 = new CelluleGraphique(joueurCourant.listeCartes[1]);
         CelluleGraphique cellGraphE = new CelluleGraphique(grilleJeu.carteEchiquier);
+        
+        cellGraph1.addActionListener(new java.awt.event.ActionListener(){
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt){
+                        
+                    }
+        });
+        
+        cellGraph2.addActionListener(new java.awt.event.ActionListener(){
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt){
+                        
+                    }
+        });
         
         carteJoueur1.add(cellGraph1);
         carteJoueur2.add(cellGraph2);
