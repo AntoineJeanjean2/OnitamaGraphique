@@ -35,9 +35,8 @@ public class fenetreDeJeu extends javax.swing.JFrame {
                 CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
                 panneauGrille.add(cellGraph);
             }
-        }    
+        }                
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,7 +56,7 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         labelJ1 = new javax.swing.JTextField();
         labelJ2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         labelJCourant = new javax.swing.JLabel();
         message = new javax.swing.JScrollPane();
@@ -76,15 +75,15 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         getContentPane().add(panneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 700, 700));
 
         carteJoueur1.setBackground(new java.awt.Color(255, 255, 255));
-        carteJoueur1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carteJoueur1.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carteJoueur1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 560, 300, 173));
 
         carteJoueur2.setBackground(new java.awt.Color(255, 255, 255));
-        carteJoueur2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carteJoueur2.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carteJoueur2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 560, 300, 173));
 
         carteEchiquier.setBackground(new java.awt.Color(255, 255, 255));
-        carteEchiquier.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carteEchiquier.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carteEchiquier, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 300, 300, 173));
 
         panneauInfo.setBackground(new java.awt.Color(51, 204, 255));
@@ -104,13 +103,13 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         panneauInfo.add(labelJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 90, -1));
         panneauInfo.add(labelJ2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 90, -1));
 
-        jButton1.setText("Démarrer la partie");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnStart.setText("Démarrer la partie");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnStartActionPerformed(evt);
             }
         });
-        panneauInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
+        panneauInfo.add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
 
         jLabel3.setText("Joueur Courant :");
         panneauInfo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
@@ -142,12 +141,27 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         setBounds(0, 0, 1414, 787);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         carteJoueur1.setVisible(true);
         carteJoueur2.setVisible(true);
         carteEchiquier.setVisible(true);
         initialiserPartie();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        CelluleGraphique cellGraph1 = new CelluleGraphique(joueurCourant.listeCartes[0]);
+        CelluleGraphique cellGraph2 = new CelluleGraphique(joueurCourant.listeCartes[1]);
+        CelluleGraphique cellGraphE = new CelluleGraphique(grilleJeu.carteEchiquier);
+        
+        carteJoueur1.add(cellGraph1);
+        carteJoueur2.add(cellGraph2);
+        carteEchiquier.add(cellGraphE);
+        
+        panneauGrille.repaint();
+        carteJoueur1.repaint();
+        carteJoueur2.repaint();
+        carteEchiquier.repaint();
+        
+        btnStart.setEnabled(false);
+    }//GEN-LAST:event_btnStartActionPerformed
 
     private void labelJ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelJ1ActionPerformed
         // TODO add your handling code here:
@@ -277,9 +291,10 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         
         J1.couleurPieces(J1.couleur);
         J2.couleurPieces(J2.couleur);
-        
-        System.out.println("Le joueur "+J1.nom+" est de couleur "+J1.couleur);
-        System.out.println("Le joueur "+J2.nom+" est de couleur "+J2.couleur);       
+              
+        labelCouleurJ1.setText(J1.couleur);
+        labelCouleurJ2.setText(J2.couleur);
+                
         
         placerTemple();
         placerPieces();
@@ -298,13 +313,15 @@ public class fenetreDeJeu extends javax.swing.JFrame {
             joueurCourant = listeJoueurs[1];
         }
         
+        labelJCourant.setText(joueurCourant.nom);
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnStart;
     private javax.swing.JPanel carteEchiquier;
     private javax.swing.JPanel carteJoueur1;
     private javax.swing.JPanel carteJoueur2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
