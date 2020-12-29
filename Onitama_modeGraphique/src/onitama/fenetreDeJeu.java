@@ -5,8 +5,13 @@
  */
 package onitama;
 
+import java.awt.event.MouseEvent;
+import static java.awt.event.MouseEvent.BUTTON1;
+import static java.awt.event.MouseEvent.BUTTON3;
+import java.awt.event.MouseListener;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.event.*;
 
 /**
  *
@@ -30,16 +35,44 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         carteJoueur2.setVisible(false);
         carteEchiquier.setVisible(false);
         
-        for (int i=4; i>=0;i--){
+        for (int i=0; i<5;i++){
             for (int j=0; j<5;j++){
                 CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
-                cellGraph.addActionListener(new java.awt.event.ActionListener(){
-                    public void actionPerformed(java.awt.event.ActionEvent evt){
+                cellGraph.addMouseListener(new MouseListener(){  
+                    @Override
+                    public void mouseClicked(MouseEvent e){
                         Cellule c = cellGraph.celluleAssociee;
-                        if (c.pieceCourante == null) return;
-                        if (!c.pieceCourante.couleur.equals(joueurCourant.couleur)) return;
-                        if (c.pieceCourante.couleur.equals(joueurCourant.couleur))
-                        
+                        if (e.getButton() == MouseEvent.BUTTON1){
+
+                        }
+                        if (e.getButton() == MouseEvent.BUTTON3){
+                            if (c.pieceCourante == null) return;
+                            else{
+                                if (c.pieceCourante.couleur.equals(joueurCourant.couleur)){
+                                    int[] coordPiece;
+                                    coordPiece = choisirPion();
+                                    txtMessage.setText("Le joueur a sélectionné une de ses pièces");                                    
+                                }
+                                else{return;
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
                     }
                 });
                 
@@ -70,7 +103,7 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         labelJCourant = new javax.swing.JLabel();
         message = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMessage = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         labelCouleurJ1 = new javax.swing.JLabel();
@@ -127,9 +160,9 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         labelJCourant.setText("nomJoueurCourant");
         panneauInfo.add(labelJCourant, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        message.setViewportView(jTextArea1);
+        txtMessage.setColumns(20);
+        txtMessage.setRows(5);
+        message.setViewportView(txtMessage);
 
         panneauInfo.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 60));
         panneauInfo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 530, 30));
@@ -164,14 +197,16 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         cellGraph1.addActionListener(new java.awt.event.ActionListener(){
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt){
-                        
+                       int numero; 
+                       numero = choisirCarte();
                     }
         });
         
         cellGraph2.addActionListener(new java.awt.event.ActionListener(){
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt){
-                        
+                       int numero; 
+                       numero = choisirCarte();
                     }
         });
         
@@ -341,6 +376,113 @@ public class fenetreDeJeu extends javax.swing.JFrame {
         
     }
     
+    public int[] choisirPion(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Saisir le numéro de la ligne de la pièce que vous souhaitez déplacer");
+        int x=sc.nextInt()-1;
+        System.out.println("Saisir le numéro de la colonne de la pièce que vous souhaitez déplacer");
+        int y=sc.nextInt()-1;
+        int[] coordonneesPiece = new int[2];
+        Piece pieceADeplacer;
+
+        if (this.grilleJeu.Cellules[x][y].pieceCourante != null){
+            if (this.grilleJeu.Cellules[x][y].pieceCourante.couleur.equals(joueurCourant.couleur)){
+                pieceADeplacer = this.grilleJeu.Cellules[x][y].pieceCourante;
+                coordonneesPiece[0] = x;
+                coordonneesPiece[1] = y;
+                return coordonneesPiece;
+            }
+            else{
+                System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
+                choisirPion();
+            }
+        }
+        else{
+            System.out.println("Saisissez des coordonnées de pièces correspondant à une de vos pièces");
+            choisirPion();
+        }return coordonneesPiece;
+    }
+    
+    public int[] choisirDeplacement(int[] coordonneesPiece,int numero){
+        Carte carteAJouer = joueurCourant.listeCartes[numero-1];
+        
+        Scanner sc = new Scanner(System.in);  //Saisie du point d'arrivée de la pièce
+        System.out.println("Saisir le numéro de la ligne où vous souhaitez déplacer votre pièce");
+        int x=sc.nextInt()-1;
+        System.out.println("Saisir le numéro de la colonne où vous souhaitez déplacer votre pièce");
+        int y=sc.nextInt()-1;
+        
+        if (x > 4 || x < 0 || y > 4 || y < 0){
+            System.out.println("Saisissez des coordonnées correctes");
+            choisirDeplacement(coordonneesPiece,numero);
+        }
+                
+        if(grilleJeu.Cellules[x][y].pieceCourante != null){
+            if(!grilleJeu.Cellules[x][y].pieceCourante.couleur.equals(joueurCourant.couleur)){
+                int xVect = x - coordonneesPiece[0];  //On définit le vecteur entre la case initiale du pion et la case d'arrivée souhaitée par ses 2 coordonnées
+                int yVect = y - coordonneesPiece[1];
+                
+                for (int i=0; i < carteAJouer.tabDeplacement.length; i++){  //On vérifie que ce vecteur appartienne au tableau des vecteurs déplacement possibles associés à la carte
+                    if (xVect == carteAJouer.tabDeplacement[i][0] && yVect == carteAJouer.tabDeplacement[i][1]){
+                        int[] tabVecteur = {xVect,yVect};  //Si ce vecteur appartient bien au tableau, on stocke ses coordonnées dans un tableau et on le renvoie
+                        echangerCarte(joueurCourant,numero);
+                        return tabVecteur;
+            }
+            }
+            }
+            else{
+                System.out.println("Vous ne pouvez pas manger vos propre pion");
+                choisirDeplacement(coordonneesPiece,numero);
+            }
+    }
+        else{
+            int xVect = x - coordonneesPiece[0];
+            int yVect = y - coordonneesPiece[1];
+            
+            for (int i=0; i < carteAJouer.tabDeplacement.length; i++){
+                    if (xVect == carteAJouer.tabDeplacement[i][0] && yVect == carteAJouer.tabDeplacement[i][1]){
+                        int[] tabVecteur = {xVect,yVect};
+                        echangerCarte(joueurCourant,numero);
+                        return tabVecteur;                       
+            }               
+            }
+            }System.out.println("Saisissez des coordonnées valides de déplacement par rapport à la carte choisie");
+            choisirDeplacement(coordonneesPiece,numero);
+            return null;
+        }
+    
+    public void deplacerPion(int[] tabVecteur, int[] coordonneesPiece){
+        int xArrivee = coordonneesPiece[0] + tabVecteur[0];  //Calcul des coordonnées de la case d'arrivée du pion 
+        int yArrivee = coordonneesPiece[1] + tabVecteur[1];
+        
+        Piece pieceADeplacer = grilleJeu.Cellules[coordonneesPiece[0]][coordonneesPiece[1]].pieceCourante;
+        
+        grilleJeu.Cellules[xArrivee][yArrivee].pieceCourante = pieceADeplacer;  //On réalise le déplacement
+        grilleJeu.Cellules[coordonneesPiece[0]][coordonneesPiece[1]].pieceCourante = null;
+        
+    }
+    
+     public int choisirCarte(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Saisir le numéro de la carte que vous souhaitez jouer");
+        int numero=sc.nextInt();
+        
+        if (numero != 1 && numero !=2){
+            System.out.println("Choisissez un numéro de carte valide");
+            choisirCarte();
+        }
+        else{
+            Carte carteAJouer=joueurCourant.listeCartes[numero-1];
+            return numero;
+        }return 0;        
+    }
+     
+     public void echangerCarte(Joueur joueurCourant, int numeroCarte ){        
+        Carte temp = joueurCourant.listeCartes[numeroCarte-1];
+        joueurCourant.listeCartes[numeroCarte-1] = grilleJeu.carteEchiquier;
+        grilleJeu.carteEchiquier = temp;               
+    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStart;
     private javax.swing.JPanel carteEchiquier;
@@ -352,7 +494,6 @@ public class fenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelCouleurJ1;
     private javax.swing.JLabel labelCouleurJ2;
     private javax.swing.JTextField labelJ1;
@@ -361,5 +502,6 @@ public class fenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JScrollPane message;
     private javax.swing.JPanel panneauGrille;
     private javax.swing.JPanel panneauInfo;
+    private javax.swing.JTextArea txtMessage;
     // End of variables declaration//GEN-END:variables
 }
