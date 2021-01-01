@@ -79,7 +79,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="carteEchiquier">
+    <Container class="javax.swing.JPanel" name="carteEchiquierPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
