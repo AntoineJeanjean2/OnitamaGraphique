@@ -432,7 +432,14 @@ public class Partie extends javax.swing.JFrame {
             /**
              * Dans le cas où la pioche est épuisée, on déclare une égalité
              */
-        }  else {
+        } else if (fin) {
+            txtMessage.setText("Egalité");
+            panneauGrille.setEnabled(false);
+            btnStart.setEnabled(true);
+            /**
+             * Sinon on passe simplement au joueur suivant
+             */
+        } else {
             echangerCarte(joueurCourant, carteCourante);
             setJoueurCourant(prochainJoueur());
             txtMessage.setText("Joueur suivant");
