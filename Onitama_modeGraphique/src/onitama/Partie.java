@@ -429,12 +429,15 @@ public class Partie extends javax.swing.JFrame {
             txtMessage.setText("Le joueur " + joueurCourant.nom + " a gagné");
             panneauGrille.setEnabled(false);
             btnStart.setEnabled(true);
+            labelJ1.setEnabled(true);
+            labelJ2.setEnabled(true);
             /**
              * Dans le cas où la pioche est épuisée, on déclare une égalité
              */
         } else if (fin) {
             txtMessage.setText("Egalité");
-            panneauGrille.setEnabled(false);
+            echangerCarte(joueurCourant, carteCourante);
+            setJoueurCourant(prochainJoueur());
             btnStart.setEnabled(true);
             /**
              * Sinon on passe simplement au joueur suivant
